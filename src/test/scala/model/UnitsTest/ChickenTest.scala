@@ -12,8 +12,8 @@ class ChickenTest extends munit.FunSuite {
   }
 
   test("A chicken should have correctly set their attributes") {
-    assertEquals(chicken.maxHp, 3)
-    assertEquals(chicken.hp, chicken.maxHp)
+    assertEquals(chicken.getMaxHp, 3)
+    assertEquals(chicken.getHp, chicken.getMaxHp)
     assertEquals(chicken.attack, -1)
     assertEquals(chicken.defense, -1)
     assertEquals(chicken.evasion, 1)
@@ -26,9 +26,9 @@ class ChickenTest extends munit.FunSuite {
   }
 
   test("A chicken should be able to update his hp") {
-    assertEquals(chicken.getHp, chicken.maxHp)
+    assertEquals(chicken.getHp, chicken.getMaxHp)
     chicken.updateHp(-1)
-    assertEquals(chicken.getHp, chicken.maxHp - 1)
+    assertEquals(chicken.getHp, chicken.getMaxHp - 1)
   }
 
 }

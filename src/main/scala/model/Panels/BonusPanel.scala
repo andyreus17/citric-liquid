@@ -28,7 +28,7 @@ class BonusPanel(characters: ArrayBuffer[PlayerCharacter],
    *
    * @param player The player to give the stars
    */
-  override def activeEffect(player: PlayerCharacter): Unit = {
+  def activeEffect(player: PlayerCharacter): Unit = {
     // The number obtained by the player when rolls the dice of 6 faces.
     val roll = player.rollDice()
     // The minimum integer between roll ⋅ Norma and roll ⋅ 3

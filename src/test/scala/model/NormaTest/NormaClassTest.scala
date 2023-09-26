@@ -42,6 +42,18 @@ class NormaClassTest extends munit.FunSuite {
     assertEquals(norma.winsCondition, winsCondition)
   }
 
+  test("A norma should be able to change his norma type") {
+    norma.setNormaType("stars")
+    assertEquals(norma.getNormaType, "stars")
+    norma.setNormaType("wins")
+    assertEquals(norma.getNormaType, "wins")
+  }
+
+  test("A norma should get his norma type") {
+    norma.setNormaType("wins")
+    assertEquals(norma.getNormaType, "wins")
+  }
+
   test("Should can do norma check to a player character") {
     assertEquals(character.getNormaType, "stars")
     character.updateStars(10)

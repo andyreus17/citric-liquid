@@ -24,6 +24,29 @@ class NormaClass extends Norma {
    */
   var normaType: String = "stars"
 
+  /** Sets the new type of the norma
+   *
+   * Sets the type of the norma (stars or wins) to make norma clear after
+   *
+   * @param normaType The new norma type
+   */
+  override def setNormaType(normaType: String): Unit = {
+    if (normaType == "stars" || normaType == "wins") {
+      this.normaType = normaType
+    }
+    else {
+      // tira error por parametro inadecuado, lo implementaré cuando sepa como hacer eso
+    }
+  }
+
+  /** Returns the norma type of the norma
+   *
+   * @return The type of the norma (stars or wins)
+   */
+  override def getNormaType: String = {
+    normaType
+  }
+
   /** The condition to norma level up due to the stars obtained by the player
    *
    * This map has the level as the key and the condition to go up to that level due to the player stars as a value.

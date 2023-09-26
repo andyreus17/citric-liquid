@@ -52,16 +52,25 @@ class PlayerCharacter(val name: String,
   }
 
   /** The name of the player. This is an identifier and should be unique. */
-  val playerName: String = name
+  private val playerName: String = name
 
   /** This variable represents the current health points of the player */
-  var hp: Int = maxHp
+  protected var hp: Int = maxHp
 
   /** This variable is a boolean than indicates if the unit is KO or not */
-  var KO = false
+  private var KO = false
+
+  /** Returns if the player is in KO state or not */
+  def getKO: Boolean = {
+    KO
+  }
 
   /** The number that the player must at least equal when rolling a dice to exit of the ko state */
-  var recoveryCounter: Int = 6
+  private var recoveryCounter: Int = 6
+
+  def getRecoveryCounter: Int = {
+    recoveryCounter
+  }
 
   /** Puts the player in KO status and resets the recovery counter
    *
@@ -86,7 +95,7 @@ class PlayerCharacter(val name: String,
   }
 
   /** This variable represents the wins that the player has */
-  var wins: Int = 0
+  private var wins: Int = 0
 
   /** Returns the wins that the player has */
   def getWins: Int = {
@@ -105,12 +114,7 @@ class PlayerCharacter(val name: String,
   }
 
   /** The norma that the player will have */
-  val norma = new NormaClass()
-
-  /** Returns the player norma */
-  def getNorma: NormaClass = {
-    norma
-  }
+  private val norma = new NormaClass()
 
   /** Returns the norma level that the player has on his norma*/
   def getNormaLevel: Int = {
@@ -120,11 +124,6 @@ class PlayerCharacter(val name: String,
   /** returns the norma type of the norma player */
   def getNormaType: String = {
     norma.normaType
-  }
-
-  /** Makes the norma check of this player */
-  def normaCheck(): Boolean = {
-    norma.normaCheck(this)
   }
 
   /** Makes the norma clear of this player */

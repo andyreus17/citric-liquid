@@ -52,11 +52,11 @@ class PlayerCharacterTest extends munit.FunSuite {
     assertEquals(character.defense, defense)
     assertEquals(character.evasion, evasion)
     assertEquals(character.randomNumberGenerator, randomNumberGenerator)
-    assertEquals(character.hp, maxHp)
-    assertEquals(character.KO, false)
-    assertEquals(character.recoveryCounter, 6)
-    assertEquals(character.wins, 0)
-    assertEquals(character.stars, 0)
+    assertEquals(character.getHp, maxHp)
+    assertEquals(character.getKO, false)
+    assertEquals(character.getRecoveryCounter, 6)
+    assertEquals(character.getWins, 0)
+    assertEquals(character.getStars, 0)
   }
 
   // 1. Test invariant properties, e.g. the result is always between 1 and 6.
@@ -67,12 +67,14 @@ class PlayerCharacterTest extends munit.FunSuite {
   }
 
   test("A character should be able to get his attributes") {
-    assertEquals(character.getWins, character.wins)
-    assertEquals(character.getStars, character.stars)
-    assertEquals(character.getHp, character.hp)
-    assertEquals(character.getNorma, character.norma)
-    assertEquals(character.getNormaLevel, norma.normaLevel)
-    assertEquals(character.getNormaType, norma.normaType)
+    character.updateWins(5)
+    assertEquals(character.getWins, 5)
+    character.updateStars(25)
+    assertEquals(character.getStars, 25)
+    character.updateHp(2)
+    assertEquals(character.getHp, 12) // inicialmente tiene 10 de hp
+    assertEquals(character.getNormaLevel, 1)
+    assertEquals(character.getNormaType, "stars")
   }
 
   test("A character should be able to update his wins") {
@@ -82,16 +84,19 @@ class PlayerCharacterTest extends munit.FunSuite {
   }
 
   test("A player can enter in a KO status") {
-    character.hp = 0
+    assertEquals(character.getHp, 10) //hp es 10 inicialmente
+    character.updateHp(-10)
+    assertEquals(character.getHp, 0)
     character.isKO()
-    assert(character.KO)
-    assertEquals(character.recoveryCounter, 6)
+    assert(character.getKO) // KO es true
+    assertEquals(character.getRecoveryCounter, 6) // su contador de recovery se pone en 6
   }
 
   test("A player should be able to make a recovery phase") {
-    assertEquals(character.recoveryCounter, 6)
+    assertEquals(character.getRecoveryCounter, 6)
     character.recovery()
-    assert(character.recoveryCounter == 5 || !character.KO)
+    assert(character.getRecoveryCounter == 5 || !character.getKO)
+    // el contador de recovery disminuyó 1 o salió del estado de KO (obtuvo 6)
   }
 
   test("A player should be able to update his stars") {
@@ -104,5 +109,14 @@ class PlayerCharacterTest extends munit.FunSuite {
     assertEquals(character.getHp, maxHp)
     character.updateHp(1)
     assertEquals(character.getHp, 11)
+  }
+
+  test("A player should be able to make norma clear") {
+    assertEquals(character.getStars, 0) //parte con stars=0
+    assertEquals(character.getNormaLevel, 1) // parte con nivel norma 1
+    assertEquals(character.getNormaType, "stars") // por defecto comienza con norma tipo stars para subir de nivel
+    character.updateStars(10) // le damos suficientes estrellas para subir al nivel norma 2
+    character.normaClear() // hacemos norma clear
+    assertEquals(character.getNormaLevel, 2) // como cumple norma check y entonces se hizo efectivamente norma clear
   }
 }

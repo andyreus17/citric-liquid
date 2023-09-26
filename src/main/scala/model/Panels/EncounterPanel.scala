@@ -31,26 +31,26 @@ class EncounterPanel(characters: ArrayBuffer[PlayerCharacter],
    *
    * @param player The player that will activate the panel effect since he lands on it
    */
-  override def activeEffect(player: PlayerCharacter): Unit = {
+  //override def activeEffect(player: PlayerCharacter): Unit = {
     // A new unit is created
-    val enemyUnit = createRandomUnit()
+    //val enemyUnit = createRandomUnit()
     // The units enter in combat
-    combat(player, enemyUnit)
-    /**  The rest of the effect will be implemented later... */
-  }
+    //combat(player, enemyUnit)
+    //**  The rest of the effect will be implemented later...
+  //}
 
   /** Creates a new random wil unit
    *
    * @return A new random wild unit (Chicken, RoboBall or Seagull)
    *
    */
-  private def createRandomUnit(): Units = {
+  def createRandomUnit(): Units = {
     /** This will be improved in the future, when i have a better vision of how to implement the panel effect */
     val randomNumber = Random.nextInt(3)
     val newUnit = randomNumber match {
-      case 1 => new Chicken
-      case 2 => new RoboBall
-      case 3 => new Seagull
+      case 0 => new Chicken
+      case 1 => new RoboBall
+      case 2 => new Seagull
     }
     newUnit
   }
@@ -59,8 +59,8 @@ class EncounterPanel(characters: ArrayBuffer[PlayerCharacter],
    *
    * This will be added in the future :D
    */
-  private def combat(character1: Units, character2: Units): Unit = {
-    /** This will be implemented in the future */
-  }
+  //private def combat(character1: Units, character2: Units): Unit = {
+  //This will be implemented in the future
+  //}
 
 }

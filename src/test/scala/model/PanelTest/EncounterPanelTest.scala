@@ -2,7 +2,7 @@ package cl.uchile.dcc.citric
 package model.PanelTest
 
 import model.Panels.{EncounterPanel, Panel}
-import model.Units.PlayerCharacter
+import model.Units.{Chicken, PlayerCharacter, RoboBall, Seagull}
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
@@ -50,6 +50,22 @@ class EncounterPanelTest extends munit.FunSuite {
   test("An encounter panel should be able to get his attributes") {
     assertEquals(encounterPanel.getCharacters, encounterPanel.characters)
     assertEquals(encounterPanel.getNextPanels, encounterPanel.nextPanels)
+  }
+
+  test("An encounter panel should can create a random wild unit") {
+    val randomUnit1 = encounterPanel.createRandomUnit()
+    val randomUnit2 = encounterPanel.createRandomUnit()
+    val randomUnit3 = encounterPanel.createRandomUnit()
+    val randomUnit4 = encounterPanel.createRandomUnit()
+    val randomUnit5 = encounterPanel.createRandomUnit()
+    val randomUnit6 = encounterPanel.createRandomUnit()
+    assert(randomUnit1.isInstanceOf[Chicken] || randomUnit1.isInstanceOf[Seagull] || randomUnit1.isInstanceOf[RoboBall])
+    assert(randomUnit2.isInstanceOf[Chicken] || randomUnit2.isInstanceOf[Seagull] || randomUnit2.isInstanceOf[RoboBall])
+    assert(randomUnit3.isInstanceOf[Chicken] || randomUnit3.isInstanceOf[Seagull] || randomUnit3.isInstanceOf[RoboBall])
+    assert(randomUnit4.isInstanceOf[Chicken] || randomUnit4.isInstanceOf[Seagull] || randomUnit4.isInstanceOf[RoboBall])
+    assert(randomUnit5.isInstanceOf[Chicken] || randomUnit5.isInstanceOf[Seagull] || randomUnit5.isInstanceOf[RoboBall])
+    assert(randomUnit6.isInstanceOf[Chicken] || randomUnit6.isInstanceOf[Seagull] || randomUnit6.isInstanceOf[RoboBall])
+
   }
 
 }

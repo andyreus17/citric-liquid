@@ -11,7 +11,7 @@ package model.Units
 abstract class AbstractUnits extends Units {
 
   /** This variable represents the stars that the unit has */
-  var stars: Int = 0
+  protected var stars: Int = 0
 
   /** Returns the stars that the unit has */
   def getStars: Int = {
@@ -21,6 +21,10 @@ abstract class AbstractUnits extends Units {
   /** Returns the health points that the unit has */
   def getHp: Int = {
     hp
+  }
+
+  def getMaxHp: Int = {
+    maxHp
   }
 
   /** This method updates the health points that the unit has

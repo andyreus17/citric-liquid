@@ -35,6 +35,12 @@ class NeutralPanelTest extends munit.FunSuite {
     assertEquals(neutralPanel.nextPanels, nextPanels)
   }
 
+  test("A neutral panel should do nothing when activates his effect") {
+    neutralPanel.activeEffect(player)
+    // hacemos player eq
+    assertEquals(player.getStars, 0)
+  }
+
   test("A neutral panel should be able to add a character") {
     assertEquals(neutralPanel.characters, ArrayBuffer(player))
     neutralPanel.addCharacter(playerToAdd)

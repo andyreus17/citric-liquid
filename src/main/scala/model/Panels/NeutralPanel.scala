@@ -21,7 +21,7 @@ class NeutralPanel(characters: ArrayBuffer[PlayerCharacter],
                    nextPanels: ArrayBuffer[Panel]) extends AbstractPanel(characters, nextPanels) {
 
   /** It does nothing since it's a neutral panel */
-  override def activeEffect(player: PlayerCharacter): Unit = {
+  def activeEffect(player: PlayerCharacter): Unit = {
+    // no hace nada
   }
-
 }

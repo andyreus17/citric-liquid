@@ -43,4 +43,18 @@ trait Norma {
    */
   def normaClear(player: PlayerCharacter): Unit
 
+  /** Returns the norma type of the norma
+   *
+   * @return The type of the norma (stars or wins)
+   */
+  def getNormaType: String
+
+  /** Sets the new type of the norma
+   *
+   * Sets the type of the norma (stars or wins) to make norma clear after
+   *
+   * @param normaType The new norma type
+   */
+  def setNormaType(normaType: String): Unit
+
 }

@@ -9,10 +9,10 @@ package model.Units
  */
 class Chicken extends AbstractUnits {
   /** The maximum health points a unit can have. It represents the unit's endurance. */
-  val maxHp: Int = 3
+  protected val maxHp: Int = 3
 
   /** This variable represents the current health points of the unit */
-  var hp: Int = maxHp
+  protected var hp: Int = maxHp
 
   /** The unit's capability to deal damage to opponents. */
   val attack: Int = -1

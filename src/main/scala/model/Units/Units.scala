@@ -10,10 +10,10 @@ package model.Units
 trait Units {
 
   /** The maximum health points a unit can have. It represents the unit's endurance. */
-  val maxHp: Int
+  protected val maxHp: Int
 
   /** This variable represents the current health points of the unit */
-  var hp: Int
+  protected var hp: Int
 
   /** The unit's capability to deal damage to opponents. */
   val attack: Int
@@ -25,7 +25,7 @@ trait Units {
   val evasion: Int
 
   /** This variable represents the stars that the unit has */
-  var stars: Int
+  protected var stars: Int
 
   /** Returns the stars that the unit has */
   def getStars: Int

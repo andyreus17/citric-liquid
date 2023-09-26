@@ -28,10 +28,10 @@ class HomePanel(characters: ArrayBuffer[PlayerCharacter],
    *
    * @param player The player to apply the panel effect
    * */
-  override def activeEffect(player: PlayerCharacter): Unit = {
+  //override def activeEffect(player: PlayerCharacter): Unit = {
     // Add one health point to the player
-    player.updateHp(1)
+    //player.updateHp(1)
     /**  The rest of the effect will be implemented later... */
-  }
+  //}
 
 }

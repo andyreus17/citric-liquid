@@ -65,5 +65,5 @@ trait Panel {
    *
    * @param player The character to apply the panel effect
    */
-  def activeEffect(player: PlayerCharacter): Unit
+  //def activeEffect(player: PlayerCharacter): Unit
 }
