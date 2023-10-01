@@ -39,11 +39,11 @@ import scala.util.Random
   * @author [[https://github.com/Seivier/ Vicente González B.]]
   * @author [[https://github.com/andyreus17/ Andrés Salazar C.]]
   */
-class PlayerCharacter(val name: String,
-                      val maxHp: Int,
-                      val attack: Int,
-                      val defense: Int,
-                      val evasion: Int,
+class PlayerCharacter(private val name: String,
+                      protected val maxHp: Int,
+                      protected val attack: Int,
+                      protected val defense: Int,
+                      protected val evasion: Int,
                       val randomNumberGenerator: Random = new Random()) extends AbstractUnits {
 
   /** Rolls a dice and returns a value between 1 to 6. */
@@ -51,8 +51,10 @@ class PlayerCharacter(val name: String,
     randomNumberGenerator.nextInt(6) + 1
   }
 
-  /** The name of the player. This is an identifier and should be unique. */
-  private val playerName: String = name
+  /** Returns the name of the player */
+  def getName: String = {
+    name
+  }
 
   /** This variable represents the current health points of the player */
   protected var hp: Int = maxHp
@@ -102,6 +104,11 @@ class PlayerCharacter(val name: String,
     wins
   }
 
+  /** Sets the wins amount of the player */
+  def setWins(amount: Int): Unit = {
+    wins = amount
+  }
+
   /** Update the wins that the player has
    *
    * This might be invoked when the wins of the player are added or subtracted
@@ -110,7 +117,7 @@ class PlayerCharacter(val name: String,
    * @return The number of wins updated
    */
   def updateWins(amount: Int): Unit = {
-    wins += amount
+    setWins(getWins + amount)
   }
 
   /** The norma that the player will have */

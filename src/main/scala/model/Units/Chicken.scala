@@ -15,12 +15,12 @@ class Chicken extends AbstractUnits {
   protected var hp: Int = maxHp
 
   /** The unit's capability to deal damage to opponents. */
-  val attack: Int = -1
+  protected val attack: Int = -1
 
   /** The unit's capability to resist or mitigate damage from opponents. */
-  val defense: Int = -1
+  protected val defense: Int = -1
 
   /** The unit's skill to completely avoid certain attacks. */
-  val evasion: Int = 1
+  protected val evasion: Int = 1
 
 }

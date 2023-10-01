@@ -16,13 +16,13 @@ trait Units {
   protected var hp: Int
 
   /** The unit's capability to deal damage to opponents. */
-  val attack: Int
+  protected val attack: Int
 
   /** The unit's capability to resist or mitigate damage from opponents. */
-  val defense: Int
+  protected val defense: Int
 
   /** The unit's skill to completely avoid certain attacks. */
-  val evasion: Int
+  protected val evasion: Int
 
   /** This variable represents the stars that the unit has */
   protected var stars: Int
@@ -30,8 +30,8 @@ trait Units {
   /** Returns the stars that the unit has */
   def getStars: Int
 
-  /** Returns the health points that the unit has */
-  def getHp: Int
+  /** Sets de stars of the unit */
+  def setStars(amount: Int): Unit
 
   /** This method updates the stars that the unit has
    *
@@ -41,6 +41,9 @@ trait Units {
    */
   def updateStars(amount: Int): Unit
 
+  /** Returns the health points that the unit has */
+  def getHp: Int
+
   /** This method updates the health points that the unit has
    *
    * This might be invoked when the health points of the unit are added or subtracted
@@ -48,5 +51,17 @@ trait Units {
    * @param amount The amount to add or subtract to the unit health points
    */
   def updateHp(amount:Int): Unit
+
+  /** Sets the hp of an unit */
+  def setHp(amount: Int): Unit
+
+  /** Returns the Attack of the unit */
+  def getAttack: Int
+
+  /** Returns the Defense of the unit */
+  def getDefense: Int
+
+  /** Returns the Evasion of the unit */
+  def getEvasion: Int
 
 }

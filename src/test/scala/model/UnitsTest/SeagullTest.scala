@@ -13,9 +13,9 @@ class SeagullTest extends munit.FunSuite {
   test("A seagull should have correctly set their attributes") {
     assertEquals(seagull.getMaxHp, 3)
     assertEquals(seagull.getHp, seagull.getMaxHp)
-    assertEquals(seagull.attack, 1)
-    assertEquals(seagull.defense, -1)
-    assertEquals(seagull.evasion, -1)
+    assertEquals(seagull.getAttack, 1)
+    assertEquals(seagull.getDefense, -1)
+    assertEquals(seagull.getEvasion, -1)
   }
 
   test("A seagull should be able to update his stars") {

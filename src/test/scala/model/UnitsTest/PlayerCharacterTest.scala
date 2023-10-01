@@ -1,8 +1,8 @@
 package cl.uchile.dcc.citric
 package model.UnitsTest
 
-import model.Norma.NormaClass
 import model.Units.PlayerCharacter
+import model.Norma.NormaClass
 
 import scala.util.Random
 
@@ -27,13 +27,11 @@ class PlayerCharacterTest extends munit.FunSuite {
   to worry about the state of the object between tests.
   */
   private var character: PlayerCharacter = _  // <- x = _ is the same as x = null
-  var norma: NormaClass = _
   /* Add any other variables you need here... */
 
   // This method is executed before each `test(...)` method.
   override def beforeEach(context: BeforeEach): Unit = {
     randomNumberGenerator = new Random(11)
-    norma = new NormaClass()
 
     character = new PlayerCharacter(
       name,
@@ -46,11 +44,11 @@ class PlayerCharacterTest extends munit.FunSuite {
   }
 
   test("A character should have correctly set their attributes") {
-    assertEquals(character.name, name)
-    assertEquals(character.maxHp, maxHp)
-    assertEquals(character.attack, attack)
-    assertEquals(character.defense, defense)
-    assertEquals(character.evasion, evasion)
+    assertEquals(character.getName, name)
+    assertEquals(character.getMaxHp, maxHp)
+    assertEquals(character.getAttack, attack)
+    assertEquals(character.getDefense, defense)
+    assertEquals(character.getEvasion, evasion)
     assertEquals(character.randomNumberGenerator, randomNumberGenerator)
     assertEquals(character.getHp, maxHp)
     assertEquals(character.getKO, false)
@@ -63,6 +61,16 @@ class PlayerCharacterTest extends munit.FunSuite {
   test("A character should be able to roll a dice") {
     for (_ <- 1 to 10) {
       assert(character.rollDice >= 1 && character.rollDice <= 6)
+    }
+  }
+
+  // 2. Set a seed and test the result is always the same.
+  // A seed sets a fixed succession of random numbers, so you can know that the next numbers
+  // are always the same for the same seed.
+  test("A character should be able to roll a dice with a fixed seed") {
+    val other = new PlayerCharacter(name, maxHp, attack, defense, evasion, new Random(11))
+    for (_ <- 1 to 10) {
+      assertEquals(character.rollDice(), other.rollDice())
     }
   }
 

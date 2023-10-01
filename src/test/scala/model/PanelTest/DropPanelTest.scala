@@ -38,10 +38,11 @@ class DropPanelTest extends munit.FunSuite {
   }
 
   test("A drop panel should subtracts stars to a player"){
-    assertEquals(player.getStars, 0)
-    assertEquals(player.getNormaLevel, 1)
+    player.setStars(15) // supongamos que tiene 15 estrellas
+    assertEquals(player.getStars, 15)
+    assertEquals(player.getNormaLevel, 1) // player tiene nivel de norma 1 (arbitrario)
     dropPanel.activeEffect(player)
-    assert(-6 <= player.getStars && player.getStars <= -1)
+    assert(9 <= player.getStars && player.getStars <= 15)
   }
 
   test("A drop panel should be able to add a character") {

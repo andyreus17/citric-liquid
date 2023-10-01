@@ -13,9 +13,9 @@ class RoboBallTest extends munit.FunSuite {
   test("A roboBall should have correctly set their attributes") {
     assertEquals(roboBall.getMaxHp, 3)
     assertEquals(roboBall.getHp, roboBall.getMaxHp)
-    assertEquals(roboBall.attack, -1)
-    assertEquals(roboBall.defense, 1)
-    assertEquals(roboBall.evasion, -1)
+    assertEquals(roboBall.getAttack, -1)
+    assertEquals(roboBall.getDefense, 1)
+    assertEquals(roboBall.getEvasion, -1)
   }
 
   test("A roboBall should be able to update his stars") {
