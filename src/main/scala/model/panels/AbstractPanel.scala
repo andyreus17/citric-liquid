@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
-package model.Panels
+package model.panels
 
-import model.Units.PlayerCharacter
+import model.units.PlayerCharacter
 import scala.collection.mutable.ArrayBuffer
 
 /** An abstract class that has the common methods that panels have
@@ -14,7 +14,7 @@ import scala.collection.mutable.ArrayBuffer
  * @author [[https://github.com/andyreus17 Andrés Salazar]]
  */
 abstract class AbstractPanel(val characters: ArrayBuffer[PlayerCharacter],
-                             var nextPanels: ArrayBuffer[Panel]) extends Panel {
+                             val nextPanels: ArrayBuffer[Panel]) extends Panel {
 
   /** Adds a character to the list of characters currently on this panel.
    *
@@ -34,6 +34,16 @@ abstract class AbstractPanel(val characters: ArrayBuffer[PlayerCharacter],
    */
   override def removeCharacter(player: PlayerCharacter): Unit = {
     characters.remove(characters.indexOf(player))
+  }
+
+  override def addPanel(panel: Panel): Unit = {
+    nextPanels.append(panel)
+    panel.nextPanels.append(this)
+  }
+
+  override def removePanel(panel: Panel): Unit = {
+    nextPanels.remove(nextPanels.indexOf(panel))
+    panel.nextPanels.remove(panel.nextPanels.indexOf(this))
   }
 
   /** Returns an array with the player characters on the panel

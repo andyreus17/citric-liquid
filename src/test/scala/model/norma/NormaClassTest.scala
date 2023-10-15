@@ -1,9 +1,9 @@
 package cl.uchile.dcc.citric
-package model.NormaTest
+package model.norma
 
-import model.Norma.NormaClass
+import model.norma.NormaClass
 
-import model.Units.PlayerCharacter
+import model.units.PlayerCharacter
 
 import scala.util.Random
 

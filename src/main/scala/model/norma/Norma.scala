@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
-package model.Norma
+package model.norma
 
-import model.Units.PlayerCharacter
+import model.units.PlayerCharacter
 
 /** Represents the player's level in the game
  *

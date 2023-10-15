@@ -1,8 +1,8 @@
 package cl.uchile.dcc.citric
-package model.UnitsTest
+package model.units
 
-import model.Units.PlayerCharacter
-import model.Norma.NormaClass
+import model.units.PlayerCharacter
+import model.norma.NormaClass
 
 import scala.util.Random
 
@@ -13,6 +13,7 @@ class PlayerCharacterTest extends munit.FunSuite {
   This will make your tests more readable, easier to maintain, and less error-prone.
   */
   private val name = "testPlayer"
+  private val name2 = "testPlayer2"
   private val maxHp = 10
   private val attack = 1
   private val defense = 1
@@ -26,6 +27,7 @@ class PlayerCharacterTest extends munit.FunSuite {
   This is a good practice because it will reset the object before each test, so you don't have
   to worry about the state of the object between tests.
   */
+  private var character2: PlayerCharacter = _
   private var character: PlayerCharacter = _  // <- x = _ is the same as x = null
   /* Add any other variables you need here... */
 
@@ -39,6 +41,15 @@ class PlayerCharacterTest extends munit.FunSuite {
       attack,
       defense,
       evasion,
+      randomNumberGenerator
+    )
+
+    character2 = new PlayerCharacter(
+      name2,
+      maxHp,
+      100, //attack
+      defense,
+      100, //evasion
       randomNumberGenerator
     )
   }
@@ -127,4 +138,41 @@ class PlayerCharacterTest extends munit.FunSuite {
     character.normaClear() // hacemos norma clear
     assertEquals(character.getNormaLevel, 2) // como cumple norma check y entonces se hizo efectivamente norma clear
   }
+
+  test("A player should be able to attack") {
+    assert(!character.getKO)
+    assert(character.attacking() > character.getAttack)
+  }
+
+  test("A player should be able to defend an attack") {
+    val oldHp = character.getHp
+    assert(!character.getKO)
+    assert(!character2.getKO)
+    character.defend(character2)
+    assert(character.getHp < oldHp)
+  }
+
+  test("A player should be able to evade an attack") {
+    val oldHp2 = character2.getHp
+    assert(!character.getKO)
+    assert(!character2.getKO)
+    assertEquals(character2.getEvasion, 100)
+    character2.evade(character)
+    assertEquals(oldHp2, character2.getHp)
+
+    val oldHp = character.getHp
+    assert(!character.getKO)
+    assert(!character2.getKO)
+    assertEquals(character2.getAttack, 100)
+    character.evade(character2)
+    assert(oldHp > character.getHp)
+  }
+
+  test("A player should be able to enter in KO state") {
+    assert(!character.getKO) //no esta KO
+    character.setHp(0)//ponemos vida en 0
+    character.isKO()
+    assert(character.getKO) //esta KO
+  }
+
 }

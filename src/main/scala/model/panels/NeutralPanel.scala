@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
-package model.Panels
+package model.panels
 
-import cl.uchile.dcc.citric.model.Units.PlayerCharacter
+import cl.uchile.dcc.citric.model.units.PlayerCharacter
 import scala.collection.mutable.ArrayBuffer
 
 /** A class that represent a neutral panel
@@ -21,7 +21,7 @@ class NeutralPanel(characters: ArrayBuffer[PlayerCharacter],
                    nextPanels: ArrayBuffer[Panel]) extends AbstractPanel(characters, nextPanels) {
 
   /** It does nothing since it's a neutral panel */
-  def activeEffect(player: PlayerCharacter): Unit = {
+  def apply(player: PlayerCharacter): Unit = {
     // no hace nada
   }
 }

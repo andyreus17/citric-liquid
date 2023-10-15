@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
-package model.Panels
+package model.panels
 
-import model.Units.PlayerCharacter
+import model.units.PlayerCharacter
 import scala.collection.mutable.ArrayBuffer
 
 /** A class that represent a bonus panel
@@ -18,7 +18,7 @@ import scala.collection.mutable.ArrayBuffer
  * @author [[https://github.com/andyreus17 Andrés Salazar]]
  */
 class BonusPanel(characters: ArrayBuffer[PlayerCharacter],
-                nextPanels: ArrayBuffer[Panel]) extends AbstractPanel(characters, nextPanels) {
+                 nextPanels: ArrayBuffer[Panel]) extends AbstractPanel(characters, nextPanels) {
 
 
   /** Actives the panel effect, so gives an amount of (min(roll ⋅ Norma, roll ⋅ 3)) stars to the player,
@@ -28,7 +28,7 @@ class BonusPanel(characters: ArrayBuffer[PlayerCharacter],
    *
    * @param player The player to give the stars
    */
-  def activeEffect(player: PlayerCharacter): Unit = {
+  def apply(player: PlayerCharacter): Unit = {
     // The number obtained by the player when rolls the dice of 6 faces.
     val roll = player.rollDice()
     // The minimum integer between roll ⋅ Norma and roll ⋅ 3

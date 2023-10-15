@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
-package model.Panels
+package model.panels
 
-import model.Units.PlayerCharacter
+import model.units.PlayerCharacter
 import scala.collection.mutable.ArrayBuffer
 
 /** A class that represent a home panel
@@ -28,10 +28,9 @@ class HomePanel(characters: ArrayBuffer[PlayerCharacter],
    *
    * @param player The player to apply the panel effect
    * */
-  //override def activeEffect(player: PlayerCharacter): Unit = {
-    // Add one health point to the player
-    //player.updateHp(1)
-    /**  The rest of the effect will be implemented later... */
-  //}
+   def apply(player: PlayerCharacter): Unit = {
+     /**  The rest of the effect will be implemented later... */
+
+   }
 
 }

@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
-package model.Norma
+package model.norma
 
-import model.Units.PlayerCharacter
+import model.units.PlayerCharacter
 
 /** Represents the player's level in the game
  *
@@ -23,6 +23,18 @@ class NormaClass extends Norma {
    * This variable specifies the type of condition that the player will be reach to raise his norma level
    */
   var normaType: String = "stars"
+
+  /** The condition to norma level up due to the stars obtained by the player
+   *
+   * This map has the level as the key and the condition to go up to that level due to the player stars as a value.
+   */
+  val starsCondition: Map[Int, Int] = Map(2 -> 10, 3 -> 30, 4 -> 70, 5 -> 120, 6 -> 200)
+
+  /** The condition to norma level up due to the wins obtained by the player
+   *
+   * This map has the level as the key and the condition to go up to that level due to the player wins as a value
+   */
+  val winsCondition: Map[Int, Int] = Map(2 -> 1, 3 -> 3, 4 -> 6, 5 -> 10, 6 -> 14)
 
   /** Sets the new type of the norma
    *
@@ -46,18 +58,6 @@ class NormaClass extends Norma {
   override def getNormaType: String = {
     normaType
   }
-
-  /** The condition to norma level up due to the stars obtained by the player
-   *
-   * This map has the level as the key and the condition to go up to that level due to the player stars as a value.
-   */
-  val starsCondition: Map[Int, Int] = Map(2 -> 10, 3 -> 30, 4 -> 70, 5 -> 120, 6 -> 200)
-
-  /** The condition to norma level up due to the wins obtained by the player
-   *
-   * This map has the level as the key and the condition to go up to that level due to the player wins as a value
-   */
-  val winsCondition: Map[Int, Int] = Map(2 -> 1, 3 -> 3, 4 -> 6, 5 -> 10, 6 -> 14)
 
   /** Return a boolean, that represents if the player fulfill the condition to norma level up
    *

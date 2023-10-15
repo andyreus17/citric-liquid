@@ -1,5 +1,5 @@
 package cl.uchile.dcc.citric
-package model.Units
+package model.units
 
 /** A class that represents a Seagull wild unit
  *

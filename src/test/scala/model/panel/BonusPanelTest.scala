@@ -1,14 +1,13 @@
 package cl.uchile.dcc.citric
-package model.PanelTest
+package model.panel
 
-import model.Units.PlayerCharacter
-import model.Panels.{BonusPanel, Panel}
+import model.units.PlayerCharacter
+import model.panels.{BonusPanel, Panel}
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 class BonusPanelTest extends munit.FunSuite {
-
   private val name = "testPlayer"
   private val maxHp = 10
   private val attack = 1
@@ -16,20 +15,28 @@ class BonusPanelTest extends munit.FunSuite {
   private val evasion = 1
 
   private var randomNumberGenerator: Random = _
-  private val playerToAdd = new PlayerCharacter("player2", maxHp, attack, defense, evasion, randomNumberGenerator)
-  private val nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
 
+  private var initialNextPanels: ArrayBuffer[Panel] = _
+  private var initialCharacters: ArrayBuffer[PlayerCharacter] = _
+  private var nextPanels: ArrayBuffer[Panel] = _
   private var characters: ArrayBuffer[PlayerCharacter] = _
+
+  private val playerToAdd = new PlayerCharacter("player2", maxHp, attack, defense, evasion, randomNumberGenerator)
+  private var panelToAdd: BonusPanel = _
+
   private var player: PlayerCharacter = _
   private var bonusPanel: BonusPanel = _
 
   override def beforeEach(context: BeforeEach): Unit = {
     randomNumberGenerator = new Random(11)
+    initialNextPanels = ArrayBuffer.empty[Panel]
+    initialCharacters = ArrayBuffer.empty[PlayerCharacter]
     player = new PlayerCharacter(name, maxHp, attack, defense, evasion, randomNumberGenerator)
+    nextPanels = ArrayBuffer.empty[Panel]
     characters = ArrayBuffer.empty[PlayerCharacter]
     characters += player
     bonusPanel = new BonusPanel(characters, nextPanels)
-
+    panelToAdd = new BonusPanel(initialCharacters, initialNextPanels)
   }
 
   test("A bonus panel should have correctly set their attributes") {
@@ -40,7 +47,7 @@ class BonusPanelTest extends munit.FunSuite {
   test("A bonus panel should gives stars to a player"){
     assertEquals(player.getStars, 0)
     assertEquals(player.getNormaLevel, 1)
-    bonusPanel.activeEffect(player)
+    bonusPanel.apply(player)
     assert(1 <= player.getStars && player.getStars <= 6)
   }
 
@@ -54,6 +61,25 @@ class BonusPanelTest extends munit.FunSuite {
     assertEquals(bonusPanel.characters, ArrayBuffer(player))
     bonusPanel.removeCharacter(player)
     assertEquals(bonusPanel.characters, ArrayBuffer.empty[PlayerCharacter])
+  }
+
+  test("A bonus panel should be able to add a next panel to it") {
+    assertEquals(bonusPanel.nextPanels, ArrayBuffer.empty[Panel])
+    assertEquals(panelToAdd.nextPanels, ArrayBuffer.empty[Panel])
+    bonusPanel.addPanel(panelToAdd)
+    assertEquals(bonusPanel.nextPanels, ArrayBuffer(panelToAdd: Panel))
+    assertEquals(panelToAdd.nextPanels, ArrayBuffer(bonusPanel: Panel))
+  }
+
+  test("A bonus panel should be able to remove a next panel to it") {
+    assertEquals(bonusPanel.nextPanels, ArrayBuffer.empty[Panel])
+    assertEquals(panelToAdd.nextPanels, ArrayBuffer.empty[Panel])
+    bonusPanel.addPanel(panelToAdd)
+    assertEquals(bonusPanel.nextPanels, ArrayBuffer(panelToAdd: Panel))
+    assertEquals(panelToAdd.nextPanels, ArrayBuffer(bonusPanel: Panel))
+    bonusPanel.removePanel(panelToAdd)
+    assertEquals(bonusPanel.nextPanels, ArrayBuffer.empty[Panel])
+    assertEquals(panelToAdd.nextPanels, ArrayBuffer.empty[Panel])
   }
 
   test("A bonus panel should be able to get his attributes") {

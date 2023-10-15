@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
-package model.Units
+package model.units
 
-import model.Norma.NormaClass
+import model.norma.NormaClass
 
 import scala.util.Random
 
@@ -33,42 +33,35 @@ import scala.util.Random
   * @param randomNumberGenerator A utility to generate random numbers. Defaults to a new `Random`
   *                              instance.
   *
-  * @author [[https://github.com/danielRamirezL/ Daniel Ramírez L.]]
-  * @author [[https://github.com/joelriquelme/ Joel Riquelme P.]]
-  * @author [[https://github.com/r8vnhill/ Ignacio Slater M.]]
-  * @author [[https://github.com/Seivier/ Vicente González B.]]
-  * @author [[https://github.com/andyreus17/ Andrés Salazar C.]]
-  */
+ * @author [[https://github.com/danielRamirezL/ Daniel Ramírez L.]]
+ * @author [[https://github.com/joelriquelme/ Joel Riquelme P.]]
+ * @author [[https://github.com/r8vnhill/ Ignacio Slater M.]]
+ * @author [[https://github.com/Seivier/ Vicente González B.]]
+ * @author [[https://github.com/andyreus17/ Andrés Salazar C.]]
+ */
 class PlayerCharacter(private val name: String,
                       protected val maxHp: Int,
                       protected val attack: Int,
                       protected val defense: Int,
                       protected val evasion: Int,
-                      val randomNumberGenerator: Random = new Random()) extends AbstractUnits {
+                      randomNumberGenerator: Random) extends AbstractUnits(randomNumberGenerator) {
 
-  /** Rolls a dice and returns a value between 1 to 6. */
-  def rollDice(): Int = {
-    randomNumberGenerator.nextInt(6) + 1
-  }
+  /** This variable represents the current health points of the player */
+  protected var hp: Int = maxHp
+
+  /** This variable represents the wins that the player has */
+  private var wins: Int = 0
+
+  /** The number that the player must at least equal when rolling a dice to exit of the ko state */
+  private var recoveryCounter: Int = 6
+
+  /** The norma that the player will have */
+  private val norma = new NormaClass()
 
   /** Returns the name of the player */
   def getName: String = {
     name
   }
-
-  /** This variable represents the current health points of the player */
-  protected var hp: Int = maxHp
-
-  /** This variable is a boolean than indicates if the unit is KO or not */
-  private var KO = false
-
-  /** Returns if the player is in KO state or not */
-  def getKO: Boolean = {
-    KO
-  }
-
-  /** The number that the player must at least equal when rolling a dice to exit of the ko state */
-  private var recoveryCounter: Int = 6
 
   def getRecoveryCounter: Int = {
     recoveryCounter
@@ -78,7 +71,7 @@ class PlayerCharacter(private val name: String,
    *
    * When a player has 0 health points, they will enter in a KO state and have their recovery counter at 6.
    */
-  def isKO(): Unit = {
+  override def isKO(): Unit = {
     if (getHp == 0) {
       KO = true
       recoveryCounter = 6
@@ -95,9 +88,6 @@ class PlayerCharacter(private val name: String,
     val roll = rollDice()
     if(roll >= recoveryCounter) KO = false else recoveryCounter -= 1
   }
-
-  /** This variable represents the wins that the player has */
-  private var wins: Int = 0
 
   /** Returns the wins that the player has */
   def getWins: Int = {
@@ -119,9 +109,6 @@ class PlayerCharacter(private val name: String,
   def updateWins(amount: Int): Unit = {
     setWins(getWins + amount)
   }
-
-  /** The norma that the player will have */
-  private val norma = new NormaClass()
 
   /** Returns the norma level that the player has on his norma*/
   def getNormaLevel: Int = {

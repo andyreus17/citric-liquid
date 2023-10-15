@@ -1,5 +1,5 @@
 package cl.uchile.dcc.citric
-package model.Units
+package model.units
 
 /** Represents any unit of the game
  *
@@ -63,5 +63,32 @@ trait Units {
 
   /** Returns the Evasion of the unit */
   def getEvasion: Int
+
+  /** Rolls a dice of 6 faces */
+  def rollDice(): Int
+
+  /** Gives the attack to other unit
+   *
+   * This method returns the amount of attack that the unit will do to an enemy unit
+   *
+   * @return The attack to the enemy unit
+   */
+  def attacking(): Int
+
+  /** Defend the enemy attack
+   *
+   * This method will be activate when de unit attacked choose to defend the enemy unit attack
+   *
+   * @param enemy The enemy unit that is attacking
+   */
+  def defend(enemy: Units): Unit
+
+  /** Evade the enemy attack
+   *
+   * This method will be activate when de unit attacked choose to evade the enemy unit attack
+   *
+   * @param enemy The enemy unit that is attacking
+   */
+  def evade(enemy: Units): Unit
 
 }

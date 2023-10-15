@@ -1,8 +1,8 @@
 package cl.uchile.dcc.citric
-package model.PanelTest
+package model.panel
 
-import model.Panels.{EncounterPanel, Panel}
-import model.Units.{Chicken, PlayerCharacter, RoboBall, Seagull}
+import model.panels.{EncounterPanel, Panel}
+import model.units.{Chicken, PlayerCharacter, RoboBall, Seagull}
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
@@ -15,19 +15,28 @@ class EncounterPanelTest extends munit.FunSuite {
   private val evasion = 1
 
   private var randomNumberGenerator: Random = _
-  private val playerToAdd = new PlayerCharacter("player2", maxHp, attack, defense, evasion, randomNumberGenerator)
-  private val nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
 
+  private var initialNextPanels: ArrayBuffer[Panel] = _
+  private var initialCharacters: ArrayBuffer[PlayerCharacter] = _
+  private var nextPanels: ArrayBuffer[Panel] = _
   private var characters: ArrayBuffer[PlayerCharacter] = _
+
+  private val playerToAdd = new PlayerCharacter("player2", maxHp, attack, defense, evasion, randomNumberGenerator)
+  private var panelToAdd: EncounterPanel = _
+
   private var player: PlayerCharacter = _
   private var encounterPanel: EncounterPanel = _
 
   override def beforeEach(context: BeforeEach): Unit = {
     randomNumberGenerator = new Random(11)
+    initialNextPanels = ArrayBuffer.empty[Panel]
+    initialCharacters = ArrayBuffer.empty[PlayerCharacter]
     player = new PlayerCharacter(name, maxHp, attack, defense, evasion, randomNumberGenerator)
+    nextPanels = ArrayBuffer.empty[Panel]
     characters = ArrayBuffer.empty[PlayerCharacter]
     characters += player
     encounterPanel = new EncounterPanel(characters, nextPanels)
+    panelToAdd = new EncounterPanel(initialCharacters, initialNextPanels)
   }
 
   test("An encounter panel should have correctly set their attributes") {
@@ -45,6 +54,25 @@ class EncounterPanelTest extends munit.FunSuite {
     assertEquals(encounterPanel.characters, ArrayBuffer(player))
     encounterPanel.removeCharacter(player)
     assertEquals(encounterPanel.characters, ArrayBuffer.empty[PlayerCharacter])
+  }
+
+  test("A encounter panel should be able to add a next panel to it") {
+    assertEquals(encounterPanel.nextPanels, ArrayBuffer.empty[Panel])
+    assertEquals(panelToAdd.nextPanels, ArrayBuffer.empty[Panel])
+    encounterPanel.addPanel(panelToAdd)
+    assertEquals(encounterPanel.nextPanels, ArrayBuffer(panelToAdd: Panel))
+    assertEquals(panelToAdd.nextPanels, ArrayBuffer(encounterPanel: Panel))
+  }
+
+  test("A encounter panel should be able to remove a next panel to it") {
+    assertEquals(encounterPanel.nextPanels, ArrayBuffer.empty[Panel])
+    assertEquals(panelToAdd.nextPanels, ArrayBuffer.empty[Panel])
+    encounterPanel.addPanel(panelToAdd)
+    assertEquals(encounterPanel.nextPanels, ArrayBuffer(panelToAdd: Panel))
+    assertEquals(panelToAdd.nextPanels, ArrayBuffer(encounterPanel: Panel))
+    encounterPanel.removePanel(panelToAdd)
+    assertEquals(encounterPanel.nextPanels, ArrayBuffer.empty[Panel])
+    assertEquals(panelToAdd.nextPanels, ArrayBuffer.empty[Panel])
   }
 
   test("An encounter panel should be able to get his attributes") {
@@ -65,7 +93,6 @@ class EncounterPanelTest extends munit.FunSuite {
     assert(randomUnit4.isInstanceOf[Chicken] || randomUnit4.isInstanceOf[Seagull] || randomUnit4.isInstanceOf[RoboBall])
     assert(randomUnit5.isInstanceOf[Chicken] || randomUnit5.isInstanceOf[Seagull] || randomUnit5.isInstanceOf[RoboBall])
     assert(randomUnit6.isInstanceOf[Chicken] || randomUnit6.isInstanceOf[Seagull] || randomUnit6.isInstanceOf[RoboBall])
-
   }
 
 }

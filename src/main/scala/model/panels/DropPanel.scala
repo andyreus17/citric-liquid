@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
-package model.Panels
+package model.panels
 
-import model.Units.PlayerCharacter
+import model.units.PlayerCharacter
 import scala.collection.mutable.ArrayBuffer
 
 /** A class that represent a drop panel
@@ -27,7 +27,7 @@ class DropPanel(characters: ArrayBuffer[PlayerCharacter],
    *
    * @param player The player to subtract the stars
    */
-  def activeEffect(player: PlayerCharacter): Unit = {
+  def apply(player: PlayerCharacter): Unit = {
 
     // The number obtained by the player when rolls the dice of 6 faces
     val roll = player.rollDice()

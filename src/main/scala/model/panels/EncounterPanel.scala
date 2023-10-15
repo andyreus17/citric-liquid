@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
-package model.Panels
+package model.panels
 
-import model.Units.{Chicken, PlayerCharacter, RoboBall, Seagull, Units}
+import model.units.{Chicken, PlayerCharacter, RoboBall, Seagull, Units}
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
@@ -20,7 +20,13 @@ import scala.util.Random
  * @author [[https://github.com/andyreus17 Andrés Salazar]]
  */
 class EncounterPanel(characters: ArrayBuffer[PlayerCharacter],
-                     nextPanels: ArrayBuffer[Panel]) extends AbstractPanel(characters, nextPanels) {
+                       nextPanels: ArrayBuffer[Panel]) extends AbstractPanel(characters, nextPanels) {
+
+  /** Variable where the random unit will be saved
+   * NO TOMAR EN CUENTA ESTO, ES UN PEQUEÑO ADELANTO PARA CUANDO TOQUE IMPLEMENTAR ESTE PANEL
+   *
+   * */
+  var x: Units = _
 
   /** Activates the encounter panel effect
    *
@@ -31,18 +37,13 @@ class EncounterPanel(characters: ArrayBuffer[PlayerCharacter],
    *
    * @param player The player that will activate the panel effect since he lands on it
    */
-  //override def activeEffect(player: PlayerCharacter): Unit = {
-    // A new unit is created
-    //val enemyUnit = createRandomUnit()
-    // The units enter in combat
-    //combat(player, enemyUnit)
-    //**  The rest of the effect will be implemented later...
-  //}
+  def apply(player: PlayerCharacter): Unit = {
+
+  }
 
   /** Creates a new random wil unit
    *
    * @return A new random wild unit (Chicken, RoboBall or Seagull)
-   *
    */
   def createRandomUnit(): Units = {
     /** This will be improved in the future, when i have a better vision of how to implement the panel effect */
@@ -52,15 +53,8 @@ class EncounterPanel(characters: ArrayBuffer[PlayerCharacter],
       case 1 => new RoboBall
       case 2 => new Seagull
     }
+    x = newUnit
     newUnit
   }
-
-  /** Causes two units to fight
-   *
-   * This will be added in the future :D
-   */
-  //private def combat(character1: Units, character2: Units): Unit = {
-  //This will be implemented in the future
-  //}
 
 }

@@ -1,5 +1,7 @@
 package cl.uchile.dcc.citric
-package model.Units
+package model.units
+
+import scala.util.Random
 
 /** Represents the things in common between the two types of units
  *
@@ -8,10 +10,18 @@ package model.Units
  *
  * @author [[https://github.com/andyreus17 Andrés Salazar]]
  */
-abstract class AbstractUnits extends Units {
+abstract class AbstractUnits(val randomNumberGenerator: Random = new Random()) extends Units {
 
   /** This variable represents the stars that the unit has */
   protected var stars: Int = 0
+
+  /** This variable is a boolean than indicates if the unit is KO or not */
+  var KO = false
+
+  /** Rolls a dice and returns a value between 1 to 6. */
+  def rollDice(): Int = {
+    randomNumberGenerator.nextInt(6) + 1
+  }
 
   /** Returns the stars that the unit has */
   def getStars: Int = {
@@ -58,6 +68,21 @@ abstract class AbstractUnits extends Units {
     setHp(getHp + amount)
   }
 
+  /** Puts a unit in KO status
+   *
+   * When a player has 0 health points, they will enter in a KO state.
+   */
+  def isKO(): Unit = {
+    if (getHp == 0) {
+      KO = true
+    }
+  }
+
+  /** Returns if the player is in KO state or not */
+  def getKO: Boolean = {
+    KO
+  }
+
   /** Returns the attack of the unit */
   def getAttack: Int = {
     attack
@@ -71,6 +96,32 @@ abstract class AbstractUnits extends Units {
   /** Returns the evasion of the unit */
   def getEvasion:Int = {
     evasion
+  }
+
+  override def attacking(): Int = {
+    if (!this.getKO) {
+      val roll: Int = this.rollDice()
+      val finalAttack: Int = this.getAttack + roll
+      finalAttack
+    }
+    else 0
+  }
+
+  override def defend(enemy: Units): Unit = {
+    val enemyATK: Int = enemy.attacking()
+    val damage: Int = math.max(1, enemyATK - (this.rollDice() + this.getDefense))
+    if (!this.getKO) {
+      this.updateHp(-damage)
+    }
+  }
+
+  override def evade(enemy: Units): Unit = {
+    val enemyATK = enemy.attacking()
+    if (!this.getKO) {
+      if (this.rollDice() + this.getEvasion <= enemyATK) {
+        this.updateHp(-enemyATK)
+      }
+    }
   }
 
 }
