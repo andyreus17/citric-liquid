@@ -89,4 +89,12 @@ class ChickenTest extends munit.FunSuite {
     assert(oldHp > chicken.getHp)
   }
 
+  test("A Seagull should be able to update his stars when beats a player character") {
+    chicken.setStars(5) // establecemos sus stars en 5
+    character2.setStars(11) // establecemos las stars del player en 11
+    chicken.beatEnemy(character2)
+    assertEquals(chicken.getStars, 10) // ahora las stars del chicken deberian ser 10 (5 que ya tenia + 5 que son la mitad hacia abajo del player al que derrotó)
+    assertEquals(character2.getStars, 6) // ahora las stars del player deberian ser 6 (pierde la mitad hacia abajo de las que ya tenía)
+  }
+
 }

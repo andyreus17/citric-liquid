@@ -4,6 +4,8 @@ package model.panel
 import model.panels.{HomePanel, Panel}
 import model.units.PlayerCharacter
 
+import cl.uchile.dcc.citric.model.norma.{NormaOne, NormaTwo}
+
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
@@ -78,6 +80,16 @@ class HomePanelTest extends munit.FunSuite {
   test("A home panel should be able to get his attributes") {
     assertEquals(homePanel.getCharacters, homePanel.characters)
     assertEquals(homePanel.getNextPanels, homePanel.nextPanels)
+  }
+
+  test("A home panel should be able to apply his effect to a player") {
+    player.setHp(3) // establecemos el hp del player en 3 (arbitrario)
+    player.setWins(1) // establecemos que tenga 1 victoria para que pueda hacer norma check y seguidamente norma clear
+    assertEquals(player.getNormaType, "wins") // revisamos que el norma type de la norma del player sea 'wins'
+    assert(player.norma.isInstanceOf[NormaOne]) // vemos que su tipo de norma sea NormaOne, que es la que deberia tener por defecto
+    homePanel.apply(player) // aplicamos el efecto del home panel sobre un player
+    assertEquals(player.getHp, 4) // vemos que aumentó el hp del player en 1 (antes tenía 3 y ahora tiene 4)
+    assert(player.norma.isInstanceOf[NormaTwo]) // ahora su norma es de tipo NormaTwo pues cumplía los requisitos para hacer norma check y por lo tanto su tipo de norma pasó de NormaOne a NormaTwo
   }
 
 }

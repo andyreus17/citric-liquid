@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package model.units
 
-import model.norma.NormaClass
+import model.norma.{Norma, NormaOne}
 
 import scala.util.Random
 
@@ -56,7 +56,7 @@ class PlayerCharacter(private val name: String,
   private var recoveryCounter: Int = 6
 
   /** The norma that the player will have */
-  private val norma = new NormaClass()
+  var norma: Norma = new NormaOne()
 
   /** Returns the name of the player */
   def getName: String = {
@@ -117,12 +117,48 @@ class PlayerCharacter(private val name: String,
 
   /** returns the norma type of the norma player */
   def getNormaType: String = {
-    norma.normaType
+    norma.getNormaType
+  }
+
+  /** Sets the norma's norma type of the player */
+  def setNormaType(newNormaType: String): Unit = {
+    if (newNormaType == "wins" || newNormaType == "stars") {
+      norma.setNormaType(newNormaType)
+    }
   }
 
   /** Makes the norma clear of this player */
   def normaClear(): Unit = {
     norma.normaClear(this)
+  }
+
+  /** This method performs the effects that must happen when a Player Character beats an enemy unit
+   *
+   * This might be invoked everytime a Player Character beats an enemy (Units type), that is, when that enemy
+   * reaches 0 hp
+   *
+   * @param enemy The enemy unit that is beaten by the PlayerCharacter
+   */
+  def beatEnemy(enemy: Units): Unit = {
+    enemy.beatenByPlayer(this)
+  }
+
+  override def beatenByPlayer(player: PlayerCharacter): Unit = {
+    player.updateWins(2)
+    player.updateStars(this.getStars/2)
+    this.updateStars(-this.getStars/2)
+  }
+
+  /** This method updates the stars of the PlayerCharacter and the wild unit when the wild unit beats the PlayerCharacter
+   *
+   * This method might be invoked when a wild unit beats a PlayerCharacter, and his effect is to transfer
+   * the half actual amount of stars from the PlayerCharacter to the winner wild unit.
+   *
+   * @param wild The wild unit who has beaten the player character
+   */
+  def beatenByWildUnit(wild: WildUnit): Unit = {
+    wild.updateStars(this.getStars/2)
+    this.updateStars(-this.getStars/2)
   }
 
 }

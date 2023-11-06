@@ -11,35 +11,40 @@ import model.units.PlayerCharacter
  * @author [[https://github.com/andyreus17 Andrés Salazar]]
  */
 trait Norma {
-
-  /** This variable represents the level of the norma
+  /** The condition to norma level up due to the wins obtained by the player
+   *
+   * This integer represents the amount of wins that the player needs to reach to be able to level up
    */
-  var normaLevel: Int
+  val winsCondition: Int
 
-  /** This variable represents the type of the norma to fulfill the condition to raise the norma level
+  /** The condition to norma level up due to the stars obtained by the player
+   *
+   * This integer represents the amount of stars that the player needs to reach to be able to level up
    */
-  var normaType: String
+  val starsCondition: Int
 
-  /** The map that contains the norma level as key and the condition to norma level up due to
-   * the player stars as value
-   */
-  val starsCondition: Map[Int, Int]
+  /** This variable represents the type of the norma to fulfill the condition to raise the norma level */
+  protected var normaType: String
 
-  /** The map that contains the norma level as key and the condition to norma level up due to
-   * the player wins as value
-   */
-  val winsCondition: Map[Int, Int]
+  /** Represents the level of the norma (for example, a class NormaTwo() will have normaLevel=2 */
+  val normaLevel: Int
 
-  /** Returns true if the player fulfill the condition to norma level up according to the his norma type
+  /** Return a boolean, that represents if the player fulfill the condition to norma level up
+   *
+   * This method checks if the player met the condition to norma level up, according to the norma type
+   * that he has previously chosen
    *
    * @param player The player to check if he fulfill the condition to norma level up
    * @return true if the player fulfill the condition, otherwise false
    */
   def normaCheck(player: PlayerCharacter): Boolean
 
-  /** Makes the norma level up to the player if he has fulfilled the condition in norma check
+  /** Norma level up the player if he meets the norma check
    *
-   * @param player The player to norma level up if he fulfill the condition in norma check
+   * This method makes norma level up to the player if he fulfill the condition to raise his norma level
+   * on the norma check. If the player makes norma level up, must also choose his new norma type
+   *
+   * @param player The player to norma level up if he fulfills his norma check
    */
   def normaClear(player: PlayerCharacter): Unit
 
@@ -49,12 +54,7 @@ trait Norma {
    */
   def getNormaType: String
 
-  /** Sets the new type of the norma
-   *
-   * Sets the type of the norma (stars or wins) to make norma clear after
-   *
-   * @param normaType The new norma type
-   */
+  /** Sets the type of the norma (type stars or wins) */
   def setNormaType(normaType: String): Unit
 
 }

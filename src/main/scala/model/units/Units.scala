@@ -8,7 +8,6 @@ package model.units
  * @author [[https://github.com/andyreus17 Andrés Salazar]]
  */
 trait Units {
-
   /** The maximum health points a unit can have. It represents the unit's endurance. */
   protected val maxHp: Int
 
@@ -91,4 +90,14 @@ trait Units {
    */
   def evade(enemy: Units): Unit
 
+  /** This method updates the stars and wins of a player when he beats a unit
+   *
+   * This method might be invoked when a player character beats a unit, and his effect is that gives
+   * the actual amount of stars and the own stars that each wild unit have (if it is a wild unit) to the winner player.
+   * Also, the  winner player's number of wins increases by one in case of beating a wild unit or two in case of beating
+   * a player character.
+   *
+   * @param player The player who has beaten the unit
+   */
+  def beatenByPlayer(player: PlayerCharacter): Unit
 }

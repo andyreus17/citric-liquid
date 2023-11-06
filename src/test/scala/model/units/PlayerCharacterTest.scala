@@ -1,8 +1,7 @@
 package cl.uchile.dcc.citric
 package model.units
 
-import model.units.PlayerCharacter
-import model.norma.NormaClass
+import model.norma.{NormaOne, NormaTwo}
 
 import scala.util.Random
 
@@ -29,6 +28,7 @@ class PlayerCharacterTest extends munit.FunSuite {
   */
   private var character2: PlayerCharacter = _
   private var character: PlayerCharacter = _  // <- x = _ is the same as x = null
+  private var wildUnit: WildUnit = _
   /* Add any other variables you need here... */
 
   // This method is executed before each `test(...)` method.
@@ -52,6 +52,8 @@ class PlayerCharacterTest extends munit.FunSuite {
       100, //evasion
       randomNumberGenerator
     )
+
+    wildUnit = new Seagull()
   }
 
   test("A character should have correctly set their attributes") {
@@ -93,7 +95,7 @@ class PlayerCharacterTest extends munit.FunSuite {
     character.updateHp(2)
     assertEquals(character.getHp, 12) // inicialmente tiene 10 de hp
     assertEquals(character.getNormaLevel, 1)
-    assertEquals(character.getNormaType, "stars")
+    assertEquals(character.getNormaType, "wins")
   }
 
   test("A character should be able to update his wins") {
@@ -132,11 +134,12 @@ class PlayerCharacterTest extends munit.FunSuite {
 
   test("A player should be able to make norma clear") {
     assertEquals(character.getStars, 0) //parte con stars=0
-    assertEquals(character.getNormaLevel, 1) // parte con nivel norma 1
-    assertEquals(character.getNormaType, "stars") // por defecto comienza con norma tipo stars para subir de nivel
+    assert(character.norma.isInstanceOf[NormaOne]) // parte con norma de tipo NormaOne
+    character.setNormaType("stars") // establecemos que el norma type de la norma sea 'stars'
+    assertEquals(character.getNormaType, "stars") // vemos que cambió el norma type
     character.updateStars(10) // le damos suficientes estrellas para subir al nivel norma 2
     character.normaClear() // hacemos norma clear
-    assertEquals(character.getNormaLevel, 2) // como cumple norma check y entonces se hizo efectivamente norma clear
+    assert(character.norma.isInstanceOf[NormaTwo]) // cumple norma check y entonces se hizo efectivamente norma clear
   }
 
   test("A player should be able to attack") {
@@ -173,6 +176,27 @@ class PlayerCharacterTest extends munit.FunSuite {
     character.setHp(0)//ponemos vida en 0
     character.isKO()
     assert(character.getKO) //esta KO
+  }
+
+  test("A player should be able to update stars and wins when beats a wild unit") {
+    character.setWins(0) // establecemos victorias del player en 0
+    character.setStars(10) // establecemos sus stars en 10
+    wildUnit.setStars(11) // establecemos las stars del wild unit en 11
+    assertEquals(wildUnit.getOwnStars, 2) // revisamos que las ownStars de esta wild unit son 2 (es un Seagull)
+    character.beatEnemy(wildUnit)
+    assertEquals(character.getStars, 23) // ahora el player deberia tener 23 stars (10 que ya tenia + 11 que tenia el wild unit + 2 que son las ownStars de este wild unit)
+    assertEquals(wildUnit.getStars, 0) // las estrellas del wild unit deberian ser 0, pues fueron todas transferidas al player que lo derrotó
+    assertEquals(character.getWins, 1) // ahora el player deberia tener 1 victoria
+  }
+
+  test("A player should be able to update stars and wins when beats another player character") {
+    character.setWins(0) // establecemos victorias del player en 0
+    character.setStars(10) // establecemos sus stars en 10
+    character2.setStars(11) // establecemos las stars del otro juagador en 11
+    character.beatEnemy(character2)
+    assertEquals(character.getStars, 15) // ahora el player deberia tener 15 stars (10 que ya tenia + 5 que son la mitad hacia abajo del player2)
+    assertEquals(character2.getStars, 6) // el player derrotado pierde la mitad hacia arriba de stars (11-5=6 en este caso)
+    assertEquals(character.getWins, 2) // ahora el player deberia tener 2 victorias
   }
 
 }

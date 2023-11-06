@@ -29,8 +29,8 @@ class HomePanel(characters: ArrayBuffer[PlayerCharacter],
    * @param player The player to apply the panel effect
    * */
    def apply(player: PlayerCharacter): Unit = {
-     /**  The rest of the effect will be implemented later... */
-
+     player.updateHp(1)
+     player.normaClear()
    }
 
 }

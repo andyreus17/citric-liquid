@@ -84,4 +84,12 @@ class RoboBallTest extends munit.FunSuite {
     assert(oldHp > roboBall.getHp)
   }
 
+  test("A Seagull should be able to update his stars when beats a player character") {
+    roboBall.setStars(5) // establecemos sus stars en 5
+    character2.setStars(11) // establecemos las stars del player en 11
+    roboBall.beatEnemy(character2)
+    assertEquals(roboBall.getStars, 10) // ahora las stars del roboball deberian ser 10 (5 que ya tenia + 5 que son la mitad hacia abajo del player al que derrotó)
+    assertEquals(character2.getStars, 6) // ahora las stars del player deberian ser 6 (pierde la mitad hacia abajo de las que ya tenía)
+  }
+
 }

@@ -26,7 +26,7 @@ class EncounterPanel(characters: ArrayBuffer[PlayerCharacter],
    * NO TOMAR EN CUENTA ESTO, ES UN PEQUEÑO ADELANTO PARA CUANDO TOQUE IMPLEMENTAR ESTE PANEL
    *
    * */
-  var x: Units = _
+  var randomUnit: Units = _
 
   /** Activates the encounter panel effect
    *
@@ -53,7 +53,7 @@ class EncounterPanel(characters: ArrayBuffer[PlayerCharacter],
       case 1 => new RoboBall
       case 2 => new Seagull
     }
-    x = newUnit
+    randomUnit = newUnit
     newUnit
   }
 
