@@ -149,13 +149,6 @@ class PlayerCharacter(private val name: String,
     this.updateStars(-this.getStars/2)
   }
 
-  /** This method updates the stars of the PlayerCharacter and the wild unit when the wild unit beats the PlayerCharacter
-   *
-   * This method might be invoked when a wild unit beats a PlayerCharacter, and his effect is to transfer
-   * the half actual amount of stars from the PlayerCharacter to the winner wild unit.
-   *
-   * @param wild The wild unit who has beaten the player character
-   */
   def beatenByWildUnit(wild: WildUnit): Unit = {
     wild.updateStars(this.getStars/2)
     this.updateStars(-this.getStars/2)

@@ -73,9 +73,7 @@ abstract class AbstractUnits(val randomNumberGenerator: Random = new Random()) e
    * When a player has 0 health points, they will enter in a KO state.
    */
   def isKO(): Unit = {
-    if (getHp == 0) {
-      KO = true
-    }
+    KO = getHp==0
   }
 
   /** Returns if the player is in KO state or not */
@@ -112,6 +110,7 @@ abstract class AbstractUnits(val randomNumberGenerator: Random = new Random()) e
     val damage: Int = math.max(1, enemyATK - (this.rollDice() + this.getDefense))
     if (!this.getKO) {
       this.updateHp(-damage)
+      if (this.getHp == 0) enemy.beatEnemy(this)
     }
   }
 
@@ -120,6 +119,7 @@ abstract class AbstractUnits(val randomNumberGenerator: Random = new Random()) e
     if (!this.getKO) {
       if (this.rollDice() + this.getEvasion <= enemyATK) {
         this.updateHp(-enemyATK)
+        if (this.getHp == 0) enemy.beatEnemy(this)
       }
     }
   }

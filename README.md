@@ -8,7 +8,11 @@ purpose is to serve as an educational tool, teaching foundational programming co
 📢 **Note**: This project is purely educational and will not be used for any commercial purposes.
 
 ---
+## Diagrama de estados
 
+![Diagrama de estados](docs/diagrama-estados.png)
+
+---
 ## For Students
 
 The remainder of this README is yours to complete. Take this opportunity to describe your

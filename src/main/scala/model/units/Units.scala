@@ -90,6 +90,15 @@ trait Units {
    */
   def evade(enemy: Units): Unit
 
+  /** This method performs the effects that must happen when a unit beats an enemy unit
+   *
+   * This might be invoked everytime a unit beats an enemy (Units type), that is, when that enemy
+   * reaches 0 hp
+   *
+   * @param enemy The enemy unit that is beaten by the unit
+   */
+  def beatEnemy(enemy: Units): Unit
+
   /** This method updates the stars and wins of a player when he beats a unit
    *
    * This method might be invoked when a player character beats a unit, and his effect is that gives
@@ -100,4 +109,13 @@ trait Units {
    * @param player The player who has beaten the unit
    */
   def beatenByPlayer(player: PlayerCharacter): Unit
+
+  /** This method updates the stars of the PlayerCharacter and the wild unit when the wild unit beats the PlayerCharacter
+   *
+   * This method might be invoked when a wild unit beats a PlayerCharacter, and his effect is to transfer
+   * the half actual amount of stars from the PlayerCharacter to the winner wild unit.
+   *
+   * @param wild The wild unit who has beaten the player character
+   */
+  def beatenByWildUnit(wild: WildUnit): Unit
 }
