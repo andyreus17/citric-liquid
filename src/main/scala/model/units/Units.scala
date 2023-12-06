@@ -54,6 +54,9 @@ trait Units {
   /** Sets the hp of an unit */
   def setHp(amount: Int): Unit
 
+  /** Returns the Max Hp of the unit */
+  def getMaxHp: Int
+
   /** Returns the Attack of the unit */
   def getAttack: Int
 

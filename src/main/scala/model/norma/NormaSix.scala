@@ -25,7 +25,7 @@ class NormaSix extends AbstractNorma {
   override def normaClear(player: PlayerCharacter): Unit = {
     // if the player fulfill the condition in norma check, raise his norma class
     if (normaCheck(player)) {
-      println("ganaste!")
+      println("Juego terminado")
     }
   }
 

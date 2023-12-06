@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package model.panels
 
-import model.units.{Chicken, PlayerCharacter, RoboBall, Seagull, Units}
+import model.units.{Chicken, PlayerCharacter, RoboBall, Seagull, Units, WildUnit}
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
@@ -23,10 +23,9 @@ class EncounterPanel(characters: ArrayBuffer[PlayerCharacter],
                        nextPanels: ArrayBuffer[Panel]) extends AbstractPanel(characters, nextPanels) {
 
   /** Variable where the random unit will be saved
-   * NO TOMAR EN CUENTA ESTO, ES UN PEQUEÑO ADELANTO PARA CUANDO TOQUE IMPLEMENTAR ESTE PANEL
    *
    * */
-  var randomUnit: Units = _
+  var randomUnit: WildUnit = _
 
   /** Activates the encounter panel effect
    *
@@ -38,14 +37,15 @@ class EncounterPanel(characters: ArrayBuffer[PlayerCharacter],
    * @param player The player that will activate the panel effect since he lands on it
    */
   def apply(player: PlayerCharacter): Unit = {
-
+    randomUnit = createRandomUnit()
+    randomUnit.defend(player) // aquí se deberia recibir adicionalmente un input para saber si defenderse o evadir
   }
 
   /** Creates a new random wil unit
    *
    * @return A new random wild unit (Chicken, RoboBall or Seagull)
    */
-  def createRandomUnit(): Units = {
+  def createRandomUnit(): WildUnit = {
     /** This will be improved in the future, when i have a better vision of how to implement the panel effect */
     val randomNumber = Random.nextInt(3)
     val newUnit = randomNumber match {

@@ -95,4 +95,9 @@ class EncounterPanelTest extends munit.FunSuite {
     assert(randomUnit6.isInstanceOf[Chicken] || randomUnit6.isInstanceOf[Seagull] || randomUnit6.isInstanceOf[RoboBall])
   }
 
+  test("An encounter panel should be able to do his effect") {
+    encounterPanel.apply(encounterPanel.getCharacters(0))
+    assert(encounterPanel.randomUnit.getHp < encounterPanel.randomUnit.getMaxHp)
+  }
+
 }

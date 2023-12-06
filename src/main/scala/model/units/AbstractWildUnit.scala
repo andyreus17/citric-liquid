@@ -6,7 +6,7 @@ abstract class AbstractWildUnit extends AbstractUnits with WildUnit {
   protected val maxHp: Int = 3
 
   /** This variable represents the current health points of the unit */
-  protected var hp: Int = maxHp
+  var hp: Int = maxHp
 
   override def getOwnStars: Int = ownStars
 

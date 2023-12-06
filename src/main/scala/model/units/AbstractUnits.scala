@@ -28,6 +28,7 @@ abstract class AbstractUnits(val randomNumberGenerator: Random = new Random()) e
     stars
   }
 
+
   /** Sets the stars of an unit */
   def setStars(amount: Int): Unit = {
     stars = math.max(amount, 0)

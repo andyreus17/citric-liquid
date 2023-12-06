@@ -1,9 +1,14 @@
 package cl.uchile.dcc.citric
 package controller
 
+/** This class is part of the State pattern design.
+ *
+ * All the methods of the states throws error by defect. Then, the methods will be override in the
+ * correspondent state class if the state allows the method. */
 class GameState {
 
   private def error() = throw new AssertionError("wrong state")
+  def reboot(controller: GameController): Unit = error()
 
   def startGame(controller: GameController): Unit = error()
 

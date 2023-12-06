@@ -3,6 +3,9 @@ package model.units
 
 import model.norma.{Norma, NormaOne}
 
+import cl.uchile.dcc.citric.model.observer.Observer
+
+import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 /** The `PlayerCharacter` class represents a character or avatar in the game, encapsulating
@@ -57,6 +60,9 @@ class PlayerCharacter(private val name: String,
 
   /** The norma that the player will have */
   var norma: Norma = new NormaOne()
+
+  /** This variable represents the observers array that observes the player */
+  private val observers: ArrayBuffer[Observer] = ArrayBuffer.empty[Observer]
 
   /** Returns the name of the player */
   def getName: String = {
@@ -127,9 +133,25 @@ class PlayerCharacter(private val name: String,
     }
   }
 
-  /** Makes the norma clear of this player */
+  /** Makes the norma clear of this player, and informs to the observers of the player if he reaches norma six */
   def normaClear(): Unit = {
     norma.normaClear(this)
+    notifyObservers()
+  }
+
+  /** This method notify to the observers of the players when any condition that we want is met */
+  private def notifyObservers(): Unit = {
+    for(obs <- observers) {
+      obs.updateObserver(this)
+    }
+  }
+
+  /** This method is used to add observers to the player
+   *
+   * @param observer The observer to add to the observers list of the player
+   * */
+  def registerObserver(observer: Observer): Unit = {
+    observers += observer
   }
 
   /** This method performs the effects that must happen when a Player Character beats an enemy unit
